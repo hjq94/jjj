@@ -27,6 +27,7 @@ public class MybatisMapperTest {
 		UserMapper userMapper=sqlSession.getMapper(UserMapper.class);//new UserMapperImpl():
 		QueryVo vo=new QueryVo();
 		System.out.println("jjj");System.out.println("qqq");
+		System.out.println("hhh");
 		User u=new User();
 		u.setUsername("五");
 		
