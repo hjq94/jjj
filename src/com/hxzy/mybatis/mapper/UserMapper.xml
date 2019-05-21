@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzy.mybatis.mapper.UserMapper">
+
+<sql id="selector">select * from user</sql>
+
+<select id="findUserByQueryVo" parameterType="QueryVo" resultType="User">
+    select * from user where username like "%"#{user.username}"%"
+   </select>
+   
+   <select id="countUser" resultType="Integer">
+   
+      select count(*) from user
+   </select>
+
+
+   <select id="selectUserBySexAndUserName" parameterType="User" resultType="User">
+       <include refid="selector"/>
+       <where>
+          <if test="username!=null and username!=''">
+            and username=#{username}
+          
+          </if>
+          
+         <if test="sex!=null and sex!=''">
+            and sex=#{sex}
+          
+          </if>
+       </where>
+       
+       
+       
+   </select>
+    	<!-- collection:从哪里取值
+	 	item:取到的值的项为item
+	 	separator:取到的每个项用什么隔开
+	 	open:以什么为开头,这边以 id in ( 为开头
+	 	close:以什么为结束,这边以 )  为结束
+	 	其中item在open和close之间 -->
+   
+<!-- select * from user where id in (28,30,32); -->
+    <select id="selectUserByIds" parameterType="QueryVo" resultType="User">
+	 	<include refid="selector"/>
+	 	<where>
+	
+	 		<foreach collection="list" item="id" separator="," open="id in (" close=")">
+	 			#{id}
+	 		</foreach>
+	 	</where>
+	 </select>
+
+
+
+
+
+
+</mapper>
